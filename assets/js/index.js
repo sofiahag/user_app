@@ -8,6 +8,7 @@ getUsers().then(async (users) => {
     for (const user of users.keys()) {
         const result = await fetch(`https://reqres.in/api/users/${user + 1}`);
         const data = await result.json();
+        hide_loading();
         if (data.data) {
             const { id, email, first_name, last_name, avatar } = data.data;
             user_container.innerHTML += create_user_container(id, email, first_name, last_name, avatar);
@@ -57,3 +58,7 @@ async function display_user_modal(user_id) {
     }
 }
 
+function hide_loading() {
+    let loading = document.querySelector('#loading');
+    loading.classList.add('hidden');
+}
